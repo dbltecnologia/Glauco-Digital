@@ -1,4 +1,5 @@
 # Firebase App Hosting configuration
+kind: "bootstrapped"
 runSettings:
   concurrency: 80
   cpu: 1
