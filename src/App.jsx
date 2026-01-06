@@ -1,246 +1,353 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import './firebase'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Code2,
+  BrainCircuit,
+  Rocket,
+  ChevronRight,
+  Terminal,
+  Smartphone,
+  Cpu,
+  MessageSquare,
+  ArrowUpRight,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Link as LinkIcon
+} from 'lucide-react';
 
-function App() {
-  const [scrolled, setScrolled] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+// --- ÍCONES CUSTOMIZADOS ---
+const TiktokIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+  </svg>
+);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+const KwaiIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M22 6H2C.9 6 0 6.9 0 8v8c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 9H8v-2h8v2zm3.5-3H5.5V9H19.5v3z" />
+    <path d="M9.5 13.5l5-3 5 3-5-3z" fill="none" />
+    <path d="M14.5 10.5l-5 3v-6l5 3z" />
+  </svg>
+);
+
+// --- CONFIGURAÇÃO DE DADOS ---
+const SITE_DATA = {
+  whatsapp: "5561998620705",
+  hero: {
+    title: "GLAUCO",
+    suffix: ".DIGITAL",
+    subtitle: "ESTRATÉGIA • IA • DESENVOLVIMENTO",
+    tagline: "Do conceito ao código. Sem intermediários."
+  },
+  stats: [
+    { label: "De Mercado", value: "12 Anos" },
+    { label: "Profissional", value: "Senior" },
+    { label: "Compromisso", value: "Agilidade" }
+  ],
+  socials: [
+    { name: "Instagram", url: "https://www.instagram.com/glauco.digital?igsh=MWZsMm5ocnY3Yjlucw%3D%3D&utm_source=qr", icon: Instagram, color: "hover:text-pink-500" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/glauco-martins-73034b96?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", icon: Linkedin, color: "hover:text-blue-500" },
+    { name: "YouTube", url: "https://youtube.com/@coproducaoinfinita?si=jgYrOz7-TAQ5nTD8", icon: Youtube, color: "hover:text-red-500" },
+    { name: "TikTok", url: "https://www.tiktok.com/@glaucodigital?_r=1&_t=ZS-92qPL7Z74sC", icon: TiktokIcon, color: "hover:text-cyan-400" },
+    { name: "Kwai", url: "https://k.kwai.com/u/@Articulador/zwjWCvDm", icon: KwaiIcon, color: "hover:text-orange-500" }
+  ],
+  services: [
+    {
+      id: "dev",
+      category: "BUILD",
+      title: "Fábrica de Software",
+      // Copy mais agressiva e direta
+      desc: "Não construímos apenas 'sistemas'. Desenvolvemos ativos digitais blindados. Engenharia de software de elite, arquitetura robusta e escalabilidade infinita para quem joga o jogo dos grandes.",
+      icon: "Code2",
+      color: "text-teal-400",
+      size: "large" // Ocupa 2x2
+    },
+    {
+      id: "app",
+      category: "MOBILE",
+      title: "Apps Nativos",
+      desc: "iOS e Android. Sua ideia publicada nas lojas com performance nativa.",
+      icon: "Smartphone",
+      color: "text-teal-300",
+      size: "medium"
+    },
+    {
+      id: "mkt",
+      category: "SPRINT",
+      title: "Marketing & IA",
+      desc: "Conteúdo gerado por IA com curadoria humana estratégica.",
+      icon: "BrainCircuit",
+      color: "text-emerald-400",
+      size: "medium"
+    },
+    {
+      id: "consult",
+      category: "STRATEGY",
+      title: "Consultoria Tech",
+      desc: "Diagnóstico e Transformação Digital.",
+      icon: "Terminal",
+      color: "text-cyan-400",
+      size: "small"
+    },
+    {
+      id: "ads",
+      category: "GROWTH",
+      title: "Tráfego Pago",
+      desc: "Gestão de performance e conversão.",
+      icon: "Rocket",
+      color: "text-teal-500",
+      size: "small"
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  ],
+  stack: ["REACT", "PYTHON", "AWS", "NODE.JS", "OPENAI", "FLUTTER", "NEXT.JS", "FIREBASE"]
+};
 
-  const handleWhatsAppRedirect = (e) => {
-    e.preventDefault()
-    const text = `Olá Glauco! Me chamo ${form.name} (${form.email}).\n\nAssunto: ${form.subject}\n\nMensagem: ${form.message}`
-    const encodedText = encodeURIComponent(text)
-    window.open(`https://wa.me/5161998620705?text=${encodedText}`, '_blank')
-  }
+// --- COMPONENTES VISUAIS ---
 
-  const inputStyle = {
-    background: 'var(--surface)',
-    border: '1px solid var(--border)',
-    color: 'var(--text-primary)',
-    padding: '1rem',
-    borderRadius: '12px',
-    outline: 'none',
-    fontSize: '1rem',
-    transition: 'border-color 0.2s',
-  }
+const IconMap = ({ name, className }) => {
+  const icons = {
+    Code2: <Code2 className={className} />,
+    BrainCircuit: <BrainCircuit className={className} />,
+    Rocket: <Rocket className={className} />,
+    Terminal: <Terminal className={className} />,
+    Smartphone: <Smartphone className={className} />,
+    Cpu: <Cpu className={className} />,
+    MessageSquare: <MessageSquare className={className} />
+  };
+  return icons[name] || <Cpu className={className} />;
+};
+
+const BackgroundGrid = () => (
+  <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 bg-[#0B1120]"></div>
+    <div className="absolute inset-0 opacity-[0.03]"
+      style={{
+        backgroundImage: 'linear-gradient(#2DD4BF 1px, transparent 1px), linear-gradient(90deg, #2DD4BF 1px, transparent 1px)',
+        backgroundSize: '50px 50px'
+      }}>
+    </div>
+    <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-[120px] mix-blend-screen animate-pulse"></div>
+    <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-emerald-500/10 rounded-full blur-[100px] mix-blend-screen"></div>
+  </div>
+);
+
+const SocialCard = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.6, duration: 0.5 }}
+    className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-md p-6 col-span-1 flex flex-col justify-between hover:border-teal-500/50 transition-colors"
+  >
+    <div>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-[10px] font-mono tracking-widest text-teal-500/70 border border-teal-900/50 px-2 py-1 rounded bg-teal-950/30">
+          SOCIAL
+        </span>
+      </div>
+      <h3 className="font-bold text-slate-100 mb-4 text-xl">Conecte-se</h3>
+    </div>
+
+    <div className="grid grid-cols-3 gap-3">
+      {SITE_DATA.socials.map((social, idx) => (
+        <a
+          key={idx}
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`
+            flex items-center justify-center p-3 rounded-lg bg-slate-800/50 border border-slate-700/50 
+            text-slate-400 transition-all duration-300 hover:scale-110 hover:bg-slate-800 ${social.color}
+          `}
+          title={social.name}
+        >
+          <social.icon className="w-6 h-6" />
+        </a>
+      ))}
+    </div>
+  </motion.div>
+);
+
+const ServiceCard = ({ service, index }) => {
+  // Ajuste de lógica de Grid para harmonia perfeita
+  // Large: 2x2, Medium: 1x1 (mas visualmente preenchendo), Small: 1x1
+  // Para 3 colunas: 
+  // [ Large (2) ] [ Medium (1) ]
+  // [ Large (2) ] [ Medium (1) ]
+  // [ Small (1) ] [ Small (1)  ] [ Social (1) ]
+
+  let gridClass = "col-span-1";
+  if (service.size === "large") gridClass = "md:col-span-2 md:row-span-2";
 
   return (
-    <div className="app">
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <div className="logo">GLAUCO DIGITAL</div>
-        <div className="nav-links">
-          <a href="#services">Serviços</a>
-          <a href="#portfolio">Portfólio</a>
-          <a href="#about">Sobre</a>
-          <a href="#contact">Contato</a>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(45, 212, 191, 0.15)" }}
+      className={`
+        relative group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-md p-6 cursor-pointer
+        ${gridClass}
+        hover:border-teal-500/50 transition-colors duration-300 flex flex-col
+      `}
+    >
+      <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
+        <ArrowUpRight className="w-5 h-5 text-teal-400" />
+      </div>
+
+      <div className="flex-1">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-[10px] font-mono tracking-widest text-teal-500/70 border border-teal-900/50 px-2 py-1 rounded bg-teal-950/30">
+            {service.category}
+          </span>
         </div>
-      </nav>
 
-      <main>
-        <section className="hero">
-          <div className="hero-content">
-            <div className="hero-profile-img" style={{ marginBottom: '2rem' }}>
-              <img src="/images/glauco-hero.jpg" alt="Glauco" style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--primary)', boxShadow: '0 0 30px rgba(0, 212, 189, 0.3)' }} />
+        <IconMap name={service.icon} className={`w-8 h-8 mb-4 ${service.color}`} />
+
+        <h3 className={`font-bold text-slate-100 mb-2 ${service.size === 'large' ? 'text-2xl' : 'text-xl'}`}>
+          {service.title}
+        </h3>
+
+        <p className="text-slate-400 text-sm leading-relaxed">
+          {service.desc}
+        </p>
+      </div>
+
+      {service.size === 'large' && (
+        <div className="mt-6 flex items-center gap-2 text-teal-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+          <span>Ver escopo técnico</span>
+          <ChevronRight className="w-4 h-4" />
+        </div>
+      )}
+
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-400/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
+    </motion.div>
+  );
+};
+
+const Header = () => {
+  const openWhatsapp = () => window.open(`https://wa.me/${SITE_DATA.whatsapp}`, '_blank');
+
+  return (
+    <nav className="fixed top-0 w-full z-50 bg-[#0B1120]/80 backdrop-blur-lg border-b border-slate-800/50">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-1 font-bold text-lg tracking-tighter">
+          <span className="text-slate-100">GLAUCO</span>
+          <span className="text-teal-400">.DIGITAL</span>
+        </div>
+        <button
+          onClick={openWhatsapp}
+          className="bg-teal-500/10 hover:bg-teal-500/20 text-teal-400 px-4 py-2 rounded-lg text-xs font-mono border border-teal-500/30 transition-all flex items-center gap-2 hover:shadow-[0_0_15px_rgba(45,212,191,0.3)]"
+        >
+          <MessageSquare className="w-3 h-3" />
+          FALAR AGORA
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+const TechTicker = ({ stack }) => (
+  <div className="w-full overflow-hidden bg-slate-900/80 border-y border-slate-800 py-3 mt-12">
+    <motion.div
+      className="flex whitespace-nowrap gap-12"
+      animate={{ x: [0, -1000] }}
+      transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+    >
+      {[...stack, ...stack, ...stack].map((tech, i) => (
+        <span key={i} className="text-slate-500 font-mono text-sm font-bold tracking-widest flex items-center gap-2">
+          <span className="w-1 h-1 bg-teal-500 rounded-full"></span>
+          {tech}
+        </span>
+      ))}
+    </motion.div>
+  </div>
+);
+
+export default function App() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const openWhatsapp = () => window.open(`https://wa.me/${SITE_DATA.whatsapp}`, '_blank');
+
+  return (
+    <div className="min-h-screen bg-[#0B1120] text-slate-200 selection:bg-teal-500/30 font-sans">
+      <BackgroundGrid />
+      <Header />
+
+      <main className="relative z-10 pt-32 px-6 max-w-6xl mx-auto pb-20">
+
+        {/* HERO SECTION */}
+        <section className="mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-block px-3 py-1 rounded-full border border-teal-500/30 bg-teal-500/5 text-teal-400 text-xs font-mono mb-6 animate-pulse">
+              ● DISPONÍVEL PARA NOVOS PROJETOS
             </div>
-            <span className="hero-tag" style={{ background: 'rgba(0, 212, 189, 0.1)', border: '1px solid rgba(0, 212, 189, 0.2)', color: 'var(--primary)' }}>Sistemas & Crescimento</span>
-            <h1 style={{ fontSize: 'clamp(3rem, 10vw, 6rem)', lineHeight: '0.9', marginBottom: '2rem' }}>Engenharia de <span className="gradient-text">Resultados</span></h1>
-            <p style={{ fontSize: '1.4rem', color: 'var(--text-secondary)', marginBottom: '3rem', maxWidth: '700px', margin: '0 auto 3rem' }}>Desenvolvimento de alta performance e marketing orientado a dados para escalar sua empresa.</p>
-            <div className="cta-group">
-              <a href="#contact" className="btn-primary" style={{ background: 'var(--primary)', color: '#000', borderRadius: '100px', padding: '1.2rem 2.5rem' }}>Iniciar Projeto</a>
+
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
+              {SITE_DATA.hero.title}<span className="text-teal-400">{SITE_DATA.hero.suffix}</span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-slate-400 max-w-2xl leading-relaxed">
+              {SITE_DATA.hero.subtitle}
+              <br />
+              <span className="text-teal-500/80 text-lg mt-2 block">{SITE_DATA.hero.tagline}</span>
+            </p>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-3 gap-4 mt-12 max-w-md border-t border-slate-800 pt-8">
+              {SITE_DATA.stats.map((stat, i) => (
+                <div key={i}>
+                  <div className="text-2xl font-bold text-white">{stat.value}</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wider">{stat.label}</div>
+                </div>
+              ))}
             </div>
-          </div>
+          </motion.div>
         </section>
 
-        <section id="services" className="section-padding container">
-          <div style={{ marginBottom: '4rem' }}>
-            <span className="hero-tag" style={{ background: 'rgba(0, 212, 189, 0.1)', border: '1px solid rgba(0, 212, 189, 0.2)', color: 'var(--primary)', marginBottom: '1rem' }}>Expertise</span>
-            <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', textAlign: 'left' }}>Soluções de <span className="gradient-text">Nova Geração</span></h2>
+        {/* BENTO GRID MENU (Harmonizado 3x3) */}
+        <section>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-sm font-mono text-slate-500 uppercase tracking-widest">
+              // Serviços & Conexões
+            </h2>
+            <div className="h-px bg-slate-800 flex-1 ml-4"></div>
           </div>
-          <div className="bento-grid">
-            <div className="bento-card large">
-              <div className="icon-box">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-              </div>
-              <div>
-                <h3>Desenvolvimento de Software</h3>
-                <p>Criamos sistemas sob medida, desde MVPs até plataformas complexas, utilizando tecnologias modernas como React, Node.js e Python para garantir escalabilidade e performance extrema.</p>
-              </div>
-            </div>
-            <div className="bento-card medium">
-              <div className="icon-box">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
-              </div>
-              <div>
-                <h3>Growth & Tráfego Pago</h3>
-                <p>Estratégias avançadas de aquisição em Meta e Google Ads, focadas em ROI positivo e escala previsível de faturamento.</p>
-              </div>
-            </div>
-            <div className="bento-card medium">
-              <div className="icon-box">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-              </div>
-              <div>
-                <h3>Automação com IA</h3>
-                <p>Implementamos agentes inteligentes e automações de processos para reduzir custos operacionais e aumentar a produtividade do seu time.</p>
-              </div>
-            </div>
-            <div className="bento-card medium full-width-mobile">
-              <div className="icon-box">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              </div>
-              <div>
-                <h3>Consultoria Elite</h3>
-                <p>Mentoria estratégica para estruturação de departamentos comerciais e tecnológicos em busca de M&A ou saída.</p>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section className="authority-strip">
-          <div className="container">
-            <p>TECNOLOGIAS DE PONTA</p>
-            <div className="logos-grid">
-              <span>React</span>
-              <span>Python</span>
-              <span>Node.js</span>
-              <span>Google Ads</span>
-              <span>Meta Ads</span>
-              <span>TensorFlow</span>
-            </div>
-          </div>
-        </section>
-
-        <section id="portfolio" className="section-padding container">
-          <h2 style={{ textAlign: 'center', marginBottom: '1rem', fontSize: '2.5rem' }}>Casos de <span className="gradient-text">Sucesso</span></h2>
-          <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '4rem', maxWidth: '600px', margin: '0 auto 4rem' }}>Projetos reais com resultados auditados e crescimento sustentável.</p>
-
-          <div className="portfolio-grid">
-            {[
-              {
-                title: 'E-commerce de Moda',
-                results: '+350% ROI em 6 meses',
-                desc: 'Escalamos o faturamento mensal de R$ 50k para R$ 220k através de Meta Ads e recuperação de carrinho.',
-                tag: 'Tráfego Pago'
-              },
-              {
-                title: 'SaaS Educacional',
-                results: '-45% no CAC',
-                desc: 'Otimização completa do funil de vendas e implementação de SEO focado em intenção de compra.',
-                tag: 'SEO & CRO'
-              },
-              {
-                title: 'Imobiliária de Luxo',
-                results: '+120 Leads/mês',
-                desc: 'Campanhas de Google Ads segmentadas por geolocalização e landing pages de alta conversão.',
-                tag: 'Performance'
-              }
-            ].map((item, idx) => (
-              <div key={idx} className="portfolio-card">
-                <div className="portfolio-tag">{item.tag}</div>
-                <h3>{item.title}</h3>
-                <div className="portfolio-results">{item.results}</div>
-                <p>{item.desc}</p>
-                <a href="#" className="portfolio-link">Ver case completo &rarr;</a>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-fr">
+            {/* Fábrica de Software (Grande 2x2) + Outros Serviços */}
+            {SITE_DATA.services.map((service, index) => (
+              <ServiceCard key={service.id} service={service} index={index} />
             ))}
+
+            {/* Card de Redes Sociais - Preenche o espaço restante harmoniosamente */}
+            <SocialCard />
           </div>
         </section>
 
-        <section id="about" className="section-padding container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }} className="about-content">
-            <div className="about-text">
-              <span className="hero-tag">Sobre Mim</span>
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Focado em <span className="gradient-text">Resultados Tangíveis</span></h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '2rem', lineHeight: '1.8' }}>
-                Com mais de 5 anos no mercado digital, ajudo empresas a escalarem suas operações através de estratégias de marketing baseadas em dados. Minha abordagem une criatividade e análise técnica para encontrar as melhores oportunidades de crescimento.
-              </p>
-              <div className="about-stats" style={{ display: 'flex', gap: '2rem' }}>
-                <div>
-                  <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>+10M</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Gerenciados</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>+50</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Clientes Satisfeitos</div>
-                </div>
-              </div>
-            </div>
-            <div className="about-image" style={{ background: 'var(--surface)', height: '400px', borderRadius: '24px', position: 'relative', overflow: 'hidden', border: '1px solid var(--border)' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(45deg, var(--primary) 0%, var(--accent) 100%)', opacity: 0.2 }}></div>
-              <div style={{ position: 'absolute', inset: '40px', border: '2px dashed var(--border)', borderRadius: '16px' }}></div>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="section-padding container">
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Vamos <span className="gradient-text">Conversar?</span></h2>
-            <p style={{ color: 'var(--text-secondary)' }}>Pronto para levar seu negócio ao próximo nível? Entre em contato hoje mesmo.</p>
-          </div>
-
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <form className="contact-form" onSubmit={handleWhatsAppRedirect}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
-                <input
-                  type="text"
-                  placeholder="Nome"
-                  style={inputStyle}
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                />
-                <input
-                  type="email"
-                  placeholder="E-mail"
-                  style={inputStyle}
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                />
-              </div>
-              <input
-                type="text"
-                placeholder="Assunto"
-                style={{ ...inputStyle, width: '100%', marginBottom: '1rem' }}
-                required
-                value={form.subject}
-                onChange={(e) => setForm({ ...form, subject: e.target.value })}
-              />
-              <textarea
-                placeholder="Sua Mensagem"
-                style={{ ...inputStyle, width: '100%', marginBottom: '2rem', height: '150px', resize: 'none' }}
-                required
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-              ></textarea>
-              <button type="submit" className="btn-primary" style={{ width: '100%', padding: '1.25rem' }}>Enviar Mensagem</button>
-            </form>
-          </div>
-        </section>
       </main>
 
-      <footer className="section-padding container" style={{ borderTop: '1px solid var(--border)', textAlign: 'center' }}>
-        <p style={{ color: 'var(--text-secondary)' }}>&copy; 2026 Glauco Digital. Todos os direitos reservados.</p>
-      </footer>
-      <a
-        href="https://wa.me/5161998620705"
-        className="whatsapp-float"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Contato via WhatsApp"
-      >
-        <img src="/images/whatsapp-icon.png" alt="WhatsApp" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-      </a>
-    </div>
-  )
-}
+      <TechTicker stack={SITE_DATA.stack} />
 
-export default App
+      {/* Botão Flutuante WhatsApp */}
+      <motion.button
+        onClick={openWhatsapp}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full p-4 shadow-[0_0_20px_rgba(37,211,102,0.4)] flex items-center justify-center transition-colors"
+      >
+        <MessageSquare className="w-6 h-6 fill-current" />
+      </motion.button>
+    </div>
+  );
+}
