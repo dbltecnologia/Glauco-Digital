@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Code2,
-  BrainCircuit,
-  Rocket,
-  ChevronRight,
-  Terminal,
-  Smartphone,
-  Cpu,
+import { 
+  Code2, 
+  BrainCircuit, 
+  Rocket, 
+  ChevronRight, 
+  Terminal, 
+  Smartphone, 
+  Cpu, 
   MessageSquare,
   ArrowUpRight,
   Instagram,
@@ -19,14 +19,14 @@ import {
 // --- ÍCONES CUSTOMIZADOS ---
 const TiktokIcon = ({ className }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
   </svg>
 );
 
 const KwaiIcon = ({ className }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M22 6H2C.9 6 0 6.9 0 8v8c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 9H8v-2h8v2zm3.5-3H5.5V9H19.5v3z" />
-    <path d="M9.5 13.5l5-3 5 3-5-3z" fill="none" />
+    <path d="M9.5 13.5l5-3 5 3-5-3z" fill="none" /> 
     <path d="M14.5 10.5l-5 3v-6l5 3z" />
   </svg>
 );
@@ -121,10 +121,10 @@ const IconMap = ({ name, className }) => {
 const BackgroundGrid = () => (
   <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
     <div className="absolute inset-0 bg-[#0B1120]"></div>
-    <div className="absolute inset-0 opacity-[0.03]"
-      style={{
-        backgroundImage: 'linear-gradient(#2DD4BF 1px, transparent 1px), linear-gradient(90deg, #2DD4BF 1px, transparent 1px)',
-        backgroundSize: '50px 50px'
+    <div className="absolute inset-0 opacity-[0.03]" 
+      style={{ 
+        backgroundImage: 'linear-gradient(#2DD4BF 1px, transparent 1px), linear-gradient(90deg, #2DD4BF 1px, transparent 1px)', 
+        backgroundSize: '50px 50px' 
       }}>
     </div>
     <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-[120px] mix-blend-screen animate-pulse"></div>
@@ -147,10 +147,10 @@ const SocialCard = () => (
       </div>
       <h3 className="font-bold text-slate-100 mb-4 text-xl">Conecte-se</h3>
     </div>
-
+    
     <div className="grid grid-cols-3 gap-3">
       {SITE_DATA.socials.map((social, idx) => (
-        <a
+        <a 
           key={idx}
           href={social.url}
           target="_blank"
@@ -175,10 +175,10 @@ const ServiceCard = ({ service, index }) => {
   // [ Large (2) ] [ Medium (1) ]
   // [ Large (2) ] [ Medium (1) ]
   // [ Small (1) ] [ Small (1)  ] [ Social (1) ]
-
+  
   let gridClass = "col-span-1";
   if (service.size === "large") gridClass = "md:col-span-2 md:row-span-2";
-
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -201,25 +201,25 @@ const ServiceCard = ({ service, index }) => {
             {service.category}
           </span>
         </div>
-
+        
         <IconMap name={service.icon} className={`w-8 h-8 mb-4 ${service.color}`} />
-
+        
         <h3 className={`font-bold text-slate-100 mb-2 ${service.size === 'large' ? 'text-2xl' : 'text-xl'}`}>
           {service.title}
         </h3>
-
+        
         <p className="text-slate-400 text-sm leading-relaxed">
           {service.desc}
         </p>
       </div>
 
       {service.size === 'large' && (
-        <div className="mt-6 flex items-center gap-2 text-teal-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
-          <span>Ver escopo técnico</span>
-          <ChevronRight className="w-4 h-4" />
-        </div>
+         <div className="mt-6 flex items-center gap-2 text-teal-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+           <span>Ver escopo técnico</span>
+           <ChevronRight className="w-4 h-4" />
+         </div>
       )}
-
+      
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-400/5 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
     </motion.div>
   );
@@ -227,7 +227,7 @@ const ServiceCard = ({ service, index }) => {
 
 const Header = () => {
   const openWhatsapp = () => window.open(`https://wa.me/${SITE_DATA.whatsapp}`, '_blank');
-
+  
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#0B1120]/80 backdrop-blur-lg border-b border-slate-800/50">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -235,7 +235,7 @@ const Header = () => {
           <span className="text-slate-100">GLAUCO</span>
           <span className="text-teal-400">.DIGITAL</span>
         </div>
-        <button
+        <button 
           onClick={openWhatsapp}
           className="bg-teal-500/10 hover:bg-teal-500/20 text-teal-400 px-4 py-2 rounded-lg text-xs font-mono border border-teal-500/30 transition-all flex items-center gap-2 hover:shadow-[0_0_15px_rgba(45,212,191,0.3)]"
         >
@@ -249,7 +249,7 @@ const Header = () => {
 
 const TechTicker = ({ stack }) => (
   <div className="w-full overflow-hidden bg-slate-900/80 border-y border-slate-800 py-3 mt-12">
-    <motion.div
+    <motion.div 
       className="flex whitespace-nowrap gap-12"
       animate={{ x: [0, -1000] }}
       transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
@@ -281,7 +281,7 @@ export default function App() {
       <Header />
 
       <main className="relative z-10 pt-32 px-6 max-w-6xl mx-auto pb-20">
-
+        
         {/* HERO SECTION */}
         <section className="mb-20">
           <motion.div
@@ -292,14 +292,14 @@ export default function App() {
             <div className="inline-block px-3 py-1 rounded-full border border-teal-500/30 bg-teal-500/5 text-teal-400 text-xs font-mono mb-6 animate-pulse">
               ● DISPONÍVEL PARA NOVOS PROJETOS
             </div>
-
+            
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
               {SITE_DATA.hero.title}<span className="text-teal-400">{SITE_DATA.hero.suffix}</span>
             </h1>
-
+            
             <p className="text-xl md:text-2xl text-slate-400 max-w-2xl leading-relaxed">
               {SITE_DATA.hero.subtitle}
-              <br />
+              <br/>
               <span className="text-teal-500/80 text-lg mt-2 block">{SITE_DATA.hero.tagline}</span>
             </p>
 
@@ -329,7 +329,7 @@ export default function App() {
             {SITE_DATA.services.map((service, index) => (
               <ServiceCard key={service.id} service={service} index={index} />
             ))}
-
+            
             {/* Card de Redes Sociais - Preenche o espaço restante harmoniosamente */}
             <SocialCard />
           </div>
@@ -338,9 +338,9 @@ export default function App() {
       </main>
 
       <TechTicker stack={SITE_DATA.stack} />
-
+      
       {/* Botão Flutuante WhatsApp */}
-      <motion.button
+      <motion.button 
         onClick={openWhatsapp}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
