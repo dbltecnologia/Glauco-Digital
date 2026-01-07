@@ -155,7 +155,7 @@ const Header = ({ navigate }) => {
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#060B15]/80 backdrop-blur-lg border-b border-white/5">
       <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-1 font-bold text-lg tracking-tighter cursor-pointer" onClick={() => navigate('home')}>
+        <div className="flex items-center gap-1 font-bold text-lg tracking-tighter cursor-pointer" onClick={() => navigate('home')} translate="no">
           <span className="text-white">GLAUCO</span>
           <span className="text-teal-400">.DIGITAL</span>
         </div>
@@ -221,7 +221,7 @@ const HomeView = ({ navigate }) => {
             DISPONÍVEL PARA PROJETOS
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter text-white mb-8 leading-[0.9]">
+          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter text-white mb-8 leading-[0.9]" translate="no">
             {SITE_DATA.hero.title}<span className="text-teal-400">{SITE_DATA.hero.suffix}</span>
           </h1>
 
