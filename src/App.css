@@ -67,9 +67,9 @@
   margin-bottom: 2rem;
 }
 
-.hero h1 {
+/* .hero h1 {
   letter-spacing: -4px;
-}
+} REMOVED: Using Tailwind tracking-tighter */
 
 .btn-primary {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
