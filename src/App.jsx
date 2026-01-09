@@ -221,8 +221,8 @@ const HomeView = ({ navigate }) => {
             DISPONÍVEL PARA PROJETOS
           </div>
 
-          <h1 className="text-[clamp(2.5rem,8.5vw,5rem)] md:text-[clamp(3.5rem,7vw,8rem)] font-extrabold tracking-tighter text-white mb-8 leading-[0.9] break-words w-full" translate="no">
-            {SITE_DATA.hero.title}<span className="text-teal-400 inline-block">{SITE_DATA.hero.suffix}</span>
+          <h1 className="text-[clamp(1.8rem,10vw,5rem)] md:text-[clamp(3.5rem,7vw,8rem)] font-extrabold tracking-tighter text-white mb-8 leading-[0.9] break-words w-full" translate="no">
+            {SITE_DATA.hero.title}<span className="text-teal-400">{SITE_DATA.hero.suffix}</span>
           </h1>
 
           <div className="mb-12">
