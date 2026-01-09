@@ -221,7 +221,7 @@ const HomeView = ({ navigate }) => {
             DISPONÍVEL PARA PROJETOS
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-tighter text-white mb-8 leading-[0.9]" translate="no">
+          <h1 className="text-[clamp(2rem,11vw,6rem)] md:text-[clamp(3rem,9vw,8rem)] font-extrabold tracking-tighter text-white mb-8 leading-[0.9]" translate="no">
             {SITE_DATA.hero.title}<span className="text-teal-400">{SITE_DATA.hero.suffix}</span>
           </h1>
 
