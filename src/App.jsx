@@ -222,7 +222,7 @@ const HomeView = ({ navigate }) => {
           </div>
 
           <h1 className="text-5xl md:text-[clamp(3.5rem,7vw,8rem)] font-extrabold tracking-tighter text-white mb-8 leading-[0.9] w-full" translate="no">
-            {SITE_DATA.hero.title}<span className="text-teal-400 block md:inline">{SITE_DATA.hero.suffix}</span>
+            {SITE_DATA.hero.title}<span className="text-teal-400">.</span><span className="text-teal-400 block md:inline">{SITE_DATA.hero.suffix.replace('.', '')}</span>
           </h1>
 
           <div className="mb-12">
