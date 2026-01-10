@@ -18,10 +18,10 @@ RUN npm run build
 
 # Set environment to production
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=8088
 
 # Expose the port
-EXPOSE 8080
+EXPOSE 8088
 
 # Use node to run the server wrapper
 CMD ["node", "server.js"]
