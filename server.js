@@ -30,6 +30,27 @@ if (fs.existsSync(distPath)) {
 app.use(express.static(distPath));
 
 // Route all requests to index.html to support SPA routing
+app.get('/proposta', (req, res) => {
+    // The file is expected to be in the dist folder after build (copied from public)
+    const filePath = path.join(distPath, 'Proposta - Ativação Monumental - 1_30_2026.pdf');
+
+    if (fs.existsSync(filePath)) {
+        // Use res.download to force download behavior
+        res.download(filePath, 'Proposta - Ativação Monumental - 1_30_2026.pdf', (err) => {
+            if (err) {
+                console.error('Error downloading file:', err);
+                if (!res.headersSent) {
+                    res.status(500).send('Error downloading file');
+                }
+            }
+        });
+    } else {
+        console.error(`File not found at ${filePath}`);
+        res.status(404).send('File not found');
+    }
+});
+
+// Route all requests to index.html to support SPA routing
 app.get(/^(.*)$/, (req, res) => {
     const indexPath = path.join(distPath, 'index.html');
     if (fs.existsSync(indexPath)) {
