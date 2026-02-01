@@ -30,7 +30,7 @@ if (fs.existsSync(distPath)) {
 app.use(express.static(distPath));
 
 // Route all requests to index.html to support SPA routing
-app.get('/proposta', (req, res) => {
+app.get('/ativacao', (req, res) => {
     // The file is expected to be in the dist folder after build (copied from public)
     const filePath = path.join(distPath, 'Proposta - Ativação Monumental - 1_30_2026.pdf');
 
