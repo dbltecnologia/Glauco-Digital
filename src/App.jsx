@@ -774,11 +774,25 @@ export default function App() {
 
   useEffect(() => {
     setMounted(true);
-    // Simple URL routing
-    const path = window.location.pathname;
-    if (path === '/ativacao' || path === '/ativacao/') {
-      setView('ativacao');
-    }
+
+    // Function to handle routing
+    const handleRouting = () => {
+      const path = window.location.pathname;
+      console.log('App Routing Debug: Current Path:', path);
+      if (path === '/ativacao' || path === '/ativacao/') {
+        console.log('App Routing Debug: Setting view to ativacao');
+        setView('ativacao');
+      } else if (path === '/' || path === '/home') {
+        setView('home');
+      }
+    };
+
+    // Initial check
+    handleRouting();
+
+    // Listen for popstate (back/forward button)
+    window.addEventListener('popstate', handleRouting);
+    return () => window.removeEventListener('popstate', handleRouting);
   }, []);
 
   if (!mounted) return null;
