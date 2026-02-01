@@ -1,5 +1,6 @@
 {
   "apphosting": {
-    "backendId": "glauco-digital"
+    "backendId": "glauco-digital",
+    "alwaysDeployFromSource": true
   }
 }

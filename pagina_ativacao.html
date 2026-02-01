@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativação Monumental | Comunicação Visual de Alto Impacto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a0a;
+            --accent: #ff6b00;
+            --light: #f5f5f5;
+            --gray: #666;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            color: var(--primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 107, 0, 0.05) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+        }
+
+        .tagline {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .problem .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem-items {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .problem-item {
+            font-size: 1.3rem;
+            color: var(--gray);
+            padding: 1.5rem;
+            border-left: 4px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .problem-item:hover {
+            border-left-color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        .solution {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+            border-radius: 20px;
+        }
+
+        .solution h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .solution p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        /* Architecture Section */
+        .architecture {
+            padding: 6rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+            font-weight: 900;
+        }
+
+        .architecture-points {
+            max-width: 800px;
+            margin: 3rem auto;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .architecture-point {
+            font-size: 1.2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .architecture-point:hover {
+            background: rgba(255, 107, 0, 0.1);
+            transform: scale(1.02);
+        }
+
+        .objectives {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .objective {
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* Locations */
+        .locations {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .locations .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .location-card {
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .location-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .location-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Who Needs */
+        .who-needs {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #2a2a2a 100%);
+            color: white;
+        }
+
+        .who-needs .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .client-card {
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .client-card:hover {
+            border-color: var(--accent);
+            background: rgba(255, 107, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .client-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .client-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .client-card li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .client-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .pricing .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            padding: 3rem 2rem;
+            background: #f8f8f8;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, var(--accent) 0%, #ff8533 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+
+        .pricing-level {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .pricing-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-amount small {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured .pricing-features li {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .btn:hover {
+            background: #ff8533;
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.3);
+        }
+
+        /* Security */
+        .security {
+            padding: 6rem 2rem;
+            background: #f8f8f8;
+        }
+
+        .security .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .security-item {
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .security-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .security-item::before {
+            content: '✓';
+            display: block;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .objectives {
+                gap: 1rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    ```
+
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ATIVAÇÃO<br>MONUMENTAL</h1>
+            <p class="subtitle">Comunicação visual de alto impacto em prédios simbólicos do Brasil</p>
+            <p class="tagline">
+                Eventos tradicionais disputam atenção. Posts somem no feed em minutos.
+                Campanhas institucionais raramente criam memória coletiva.<br><br>
+                <strong style="color: var(--accent);">Prédios simbólicos falam com o país inteiro — quando usados da
+                    forma certa.</strong>
+            </p>
+            <a href="#contato" class="btn">Vamos Monumentalizar Sua Marca</a>
+        </div>
+    </section>
+
+    ```
+    <!-- Problem Section -->
+    <section class="problem fade-in">
+        <div class="container">
+            <div class="problem-items">
+                <div class="problem-item">Eventos tradicionais disputam atenção.</div>
+                <div class="problem-item">Posts somem no feed em minutos.</div>
+                <div class="problem-item">Campanhas institucionais raramente criam memória coletiva.</div>
+            </div>
+            <div class="solution">
+                <h2>A pergunta não é "como comunicar"</h2>
+                <p>É onde e com qual peso simbólico.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture fade-in">
+        <div class="container">
+            <h2 class="section-title">ARQUITETURA COMO MÍDIA</h2>
+            <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem;">
+                Criamos experiências visuais de alto impacto, transformando arquitetura em narrativa pública.
+            </p>
+            <div class="architecture-points">
+                <div class="architecture-point">✗ Não é evento.</div>
+                <div class="architecture-point">✗ Não é ação promocional.</div>
+                <div class="architecture-point">✓ É comunicação institucional em escala nacional.</div>
+            </div>
+            <div class="objectives">
+                <div class="objective">Visibilidade Orgânica</div>
+                <div class="objective">Registro Histórico</div>
+                <div class="objective">Autoridade Imediata</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations -->
+    <section class="locations fade-in">
+        <div class="container">
+            <h2 class="section-title">LOCAIS DE ALTO VALOR</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">Atuamos onde a história acontece</p>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h3>🏛️ Congresso Nacional</h3>
+                    <p>e Esplanada dos Ministérios</p>
+                </div>
+                <div class="location-card">
+                    <h3>🏢 Ministérios</h3>
+                    <p>e Sedes Institucionais</p>
+                </div>
+                <div class="location-card">
+                    <h3>🏰 Prédios Históricos</h3>
+                    <p>e Patrimônios Culturais</p>
+                </div>
+                <div class="location-card">
+                    <h3>🌆 Fachadas Icônicas</h3>
+                    <p>nas principais Capitais</p>
+                </div>
+            </div>
+            <p style="font-size: 1.3rem; margin-top: 3rem; color: var(--accent); font-weight: 600;">
+                O local amplifica a mensagem.
+            </p>
+        </div>
+    </section>
+
+    <!-- Who Needs -->
+    <section class="who-needs fade-in">
+        <div class="container">
+            <h2 class="section-title">QUEM PRECISA DISSO?</h2>
+            <div class="clients-grid">
+                <div class="client-card">
+                    <h3>ONGS & INSTITUIÇÕES</h3>
+                    <ul>
+                        <li>Datas simbólicas</li>
+                        <li>Causas nacionais</li>
+                        <li>Mobilização pública</li>
+                    </ul>
+                </div>
+                <div class="client-card">
+                    <h3>GRANDES EMPRESAS</h3>
+                    <ul>
+                        <li>ESG</li>
+                        <li>Marca institucional</li>
+                        <li>Reforço de reputação</li>
+                    </ul>
+                </div>
+                <div class="client-card">
+                    <h3>SETOR PÚBLICO</h3>
+                    <ul>
+                        <li>Comunicação de Estado</li>
+                        <li>Marcos históricos</li>
+                        <li>Datas oficiais</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security -->
+    <section class="security fade-in">
+        <div class="container">
+            <h2 class="section-title">SEGURANÇA E OPERAÇÃO</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                Operação com risco zero para o contratante. Entregamos 'Chave na Mão'.
+            </p>
+            <div class="security-grid">
+                <div class="security-item">
+                    <strong>Planejamento técnico completo</strong>
+                </div>
+                <div class="security-item">
+                    <strong>Gerador de 80KVA Próprio</strong>
+                </div>
+                <div class="security-item">
+                    <strong>Projetores Laser 16k</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Brilho Extremo</p>
+                </div>
+                <div class="security-item">
+                    <strong>Emissão de ART e Licenças</strong>
+                </div>
+            </div>
+            <p style="font-size: 1.1rem; margin-top: 3rem; color: var(--gray);">
+                O cliente foca na mensagem. Nós cuidamos da execução.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing fade-in">
+        <div class="container">
+            <h2 class="section-title">NÍVEIS DE ATIVAÇÃO</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-level">Nível 1</div>
+                    <h3 class="pricing-title">BÁSICO</h3>
+                    <div class="pricing-amount">
+                        <small>A partir de</small><br>
+                        R$ 70.000
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Estrutura Completa</li>
+                        <li>✓ Equipe Técnica</li>
+                        <li>✓ Operação</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-level">Nível 2</div>
+                    <h3 class="pricing-title">COM REGISTRO</h3>
+                    <div class="pricing-amount">
+                        <small>A partir de</small><br>
+                        R$ 95.000
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Tudo do Nível 1</li>
+                        <li>✓ DRONE + VÍDEO</li>
+                        <li>✓ Edição Same Day</li>
+                        <li>✓ Material p/ Imprensa</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-level">Nível 3</div>
+                    <h3 class="pricing-title">ESTRATÉGICO</h3>
+                    <div class="pricing-amount">
+                        <small>A partir de</small><br>
+                        R$ 120.000
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Tudo do Nível 2</li>
+                        <li>✓ Motion Graphics 3D</li>
+                        <li>✓ Direção de Arte</li>
+                        <li>✓ Relatório Completo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta fade-in" id="contato">
+        <div class="container">
+            <h2>VAMOS MONUMENTALIZAR SUA MARCA?</h2>
+            <p>Próximo passo: Reunião de Briefing para definir local e narrativa.</p>
+            <p style="font-size: 1rem; color: rgba(255, 255, 255, 0.6); margin-top: 2rem;">
+                Recomendamos antecedência mínima de 30 dias para aprovações e planejamento.
+            </p>
+            <div class="contact-info">
+                <a href="mailto:coproducaoinfinita01@gmail.com" class="contact-item">
+                    📧 coproducaoinfinita01@gmail.com
+                </a>
+                <a href="https://wa.me/5561998620705" class="contact-item" target="_blank">
+                    📱 +55 61 99862-0705
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+    ```
+
+</body>
+
+</html>

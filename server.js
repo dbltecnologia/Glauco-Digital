@@ -33,6 +33,7 @@ app.use(express.static(distPath));
 
 // Route for /ativacao to serve static HTML
 app.get('/ativacao', (req, res) => {
+    console.log('GET /ativacao received');
     const pagePath = path.join(distPath, 'pagina_ativacao.html');
     if (fs.existsSync(pagePath)) {
         res.sendFile(pagePath);
