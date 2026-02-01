@@ -794,12 +794,7 @@ export default function App() {
     }
   };
 
-  if (!mounted) return null;
 
-  const navigate = (newView) => {
-    setView(newView);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   const openWhatsapp = () => window.open(`https://wa.me/${SITE_DATA.whatsapp}`, '_blank');
 
