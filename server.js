@@ -31,7 +31,16 @@ app.use(express.static(distPath));
 
 // Route all requests to index.html to support SPA routing
 
-// Route all requests to index.html to support SPA routing
+// Route for /ativacao to serve static HTML
+app.get('/ativacao', (req, res) => {
+    const pagePath = path.join(distPath, 'pagina_ativacao.html');
+    if (fs.existsSync(pagePath)) {
+        res.sendFile(pagePath);
+    } else {
+        console.error(`File not found at ${pagePath}`);
+        res.status(404).send('Page not found');
+    }
+});
 app.get(/^(.*)$/, (req, res) => {
     const indexPath = path.join(distPath, 'index.html');
     if (fs.existsSync(indexPath)) {

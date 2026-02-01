@@ -598,173 +598,7 @@ const ArticleView = ({ navigate }) => {
   );
 };
 
-const AtivacaoView = ({ navigate }) => {
-  const openWhatsapp = () => window.open(`https://wa.me/5561998620705?text=Ol%C3%A1%2C%20vi%20a%20Proposta%20Monumental%20e%20gostaria%20de%20agendar%20uma%20reuni%C3%A3o.`, '_blank');
 
-  return (
-    <div className="min-h-screen bg-[#060B15] selection:bg-teal-500/30 relative z-20 font-sans text-slate-200 pb-20">
-      <main className="pt-32 px-6 max-w-6xl mx-auto">
-        {/* HERO */}
-        <section className="text-center mb-24 relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
-
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-teal-500/30 bg-teal-500/10 text-teal-400 text-[10px] font-mono tracking-[0.2em] mb-8 uppercase backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-            </span>
-            Ativação Institucional
-          </div>
-
-          <h1 className="text-5xl md:text-[5rem] font-extrabold text-white mb-8 leading-[0.9] tracking-tighter uppercase">
-            Monumental
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-light">
-            Arquitetura como mídia. Transforme prédios icônicos em <strong className="text-teal-400 font-bold">narrativa pública</strong> de alto impacto.
-          </p>
-
-          <div className="mt-12 flex flex-wrap justify-center gap-4">
-            <button onClick={openWhatsapp} className="bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold px-8 py-4 rounded-xl text-sm tracking-widest transition-all hover:scale-105 shadow-[0_0_30px_rgba(45,212,191,0.3)] uppercase flex items-center gap-2">
-              <MessageSquare className="w-5 h-5" /> Agendar Briefing
-            </button>
-            <button onClick={() => navigate('home')} className="px-8 py-4 border border-white/10 text-slate-400 hover:text-white font-bold text-sm tracking-widest rounded-xl hover:bg-white/5 transition-all uppercase">
-              Voltar ao Site
-            </button>
-          </div>
-        </section>
-
-        {/* CONCEPT */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-          {[
-            { title: "Zero Ruído", desc: "Posts somem. Eventos passam. Monumentos ficam na memória coletiva.", icon: Monitor },
-            { title: "Escala Nacional", desc: "Não é ação promocional. É comunicação de Estado em locais de poder.", icon: Target },
-            { title: "Autoridade", desc: "Associe sua marca à grandiosidade arquitetônica de Brasília.", icon: CheckCircle2 }
-          ].map((item, i) => (
-            <div key={i} className="bg-[#0B1120]/50 border border-white/5 p-8 rounded-3xl hover:border-teal-500/20 transition-all group">
-              <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors">
-                <item.icon className="w-6 h-6 text-teal-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
-              <p className="text-slate-400 leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </section>
-
-        {/* PRICING */}
-        <section className="mb-32">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 uppercase tracking-tight">Níveis de Ativação</h2>
-            <p className="text-slate-400">Escolha o impacto que sua marca precisa.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* NÍVEL 1 */}
-            <div className="bg-[#0B1120] border border-white/10 p-8 rounded-3xl flex flex-col relative overflow-hidden group hover:border-teal-500/30 transition-all">
-              <div className="mb-8">
-                <div className="text-teal-500 font-mono text-xs font-bold tracking-widest uppercase mb-2">Nível 1</div>
-                <h3 className="text-3xl font-extrabold text-white mb-4">Básico</h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-sm text-slate-500 font-bold">A partir de</span>
-                  <span className="text-2xl font-bold text-white">R$ 70.000</span>
-                </div>
-              </div>
-              <ul className="space-y-4 mb-8 flex-1">
-                {['Estrutura Completa', 'Equipe Técnica', 'Operação 100% Assistida', 'Projeção Laser'].map(item => (
-                  <li key={item} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-teal-500 flex-shrink-0" /> {item}
-                  </li>
-                ))}
-              </ul>
-              <button onClick={openWhatsapp} className="w-full py-4 rounded-xl border border-white/10 text-white font-bold tracking-widest hover:bg-white/5 transition-all uppercase text-xs">Consultar Disponibilidade</button>
-            </div>
-
-            {/* NÍVEL 2 */}
-            <div className="bg-[#0B1120] border border-teal-500/50 p-8 rounded-3xl flex flex-col relative overflow-hidden shadow-[0_0_40px_rgba(45,212,191,0.05)] scale-105 z-10">
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-teal-400 to-emerald-400"></div>
-              <div className="mb-8">
-                <div className="text-teal-400 font-mono text-xs font-bold tracking-widest uppercase mb-2">Nível 2</div>
-                <h3 className="text-3xl font-extrabold text-white mb-4">Com Registro</h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-sm text-slate-500 font-bold">A partir de</span>
-                  <span className="text-2xl font-bold text-white">R$ 95.000</span>
-                </div>
-              </div>
-              <ul className="space-y-4 mb-8 flex-1">
-                <li className="font-bold text-white text-sm">Tudo do Nível 1 +</li>
-                {['Drone + Vídeo 4K', 'Edição Same Day', 'Material p/ Imprensa', 'Social Media Kit'].map(item => (
-                  <li key={item} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-teal-400 flex-shrink-0" /> {item}
-                  </li>
-                ))}
-              </ul>
-              <button onClick={openWhatsapp} className="w-full py-4 rounded-xl bg-teal-500 text-slate-900 font-bold tracking-widest hover:bg-teal-400 transition-all uppercase text-xs shadow-lg">Quero Este</button>
-            </div>
-
-            {/* NÍVEL 3 */}
-            <div className="bg-[#0B1120] border border-white/10 p-8 rounded-3xl flex flex-col relative overflow-hidden group hover:border-teal-500/30 transition-all">
-              <div className="mb-8">
-                <div className="text-purple-400 font-mono text-xs font-bold tracking-widest uppercase mb-2">Nível 3</div>
-                <h3 className="text-3xl font-extrabold text-white mb-4">Estratégico</h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-sm text-slate-500 font-bold">A partir de</span>
-                  <span className="text-2xl font-bold text-white">R$ 120.000</span>
-                </div>
-              </div>
-              <ul className="space-y-4 mb-8 flex-1">
-                <li className="font-bold text-white text-sm">Tudo do Nível 2 +</li>
-                {['Motion Graphics 3D', 'Direção de Arte Exclusiva', 'Relatório de Impacto', 'Assessoria Completa'].map(item => (
-                  <li key={item} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-purple-500 flex-shrink-0" /> {item}
-                  </li>
-                ))}
-              </ul>
-              <button onClick={openWhatsapp} className="w-full py-4 rounded-xl border border-white/10 text-white font-bold tracking-widest hover:bg-white/5 transition-all uppercase text-xs">Falar com Consultor</button>
-            </div>
-          </div>
-        </section>
-
-        {/* INFO GRID */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-white/5 pt-16">
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              <Target className="text-teal-500" /> Locais de Alto Valor
-            </h3>
-            <ul className="space-y-4">
-              {['Congresso Nacional', 'Ministérios e Sedes', 'Prédios Históricos', 'Fachadas Icônicas'].map(local => (
-                <li key={local} className="flex items-center gap-3 text-slate-400 border-b border-white/5 pb-3">
-                  <div className="w-1.5 h-1.5 bg-teal-500 rounded-full"></div> {local}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              <Zap className="text-teal-500" /> Diferencial Operacional
-            </h3>
-            <div className="space-y-6 text-slate-400">
-              <p>Não é apenas sobre o projetor. É sobre <strong>capacidade de execução</strong> em Brasília.</p>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3"><CheckSquare className="w-4 h-4 text-teal-500" /> Equipamento Residente (Sem frete SP)</li>
-                <li className="flex items-center gap-3"><CheckSquare className="w-4 h-4 text-teal-500" /> Despachante Próprio (Licenças ART)</li>
-                <li className="flex items-center gap-3"><CheckSquare className="w-4 h-4 text-teal-500" /> Gerador 80KVA Próprio</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <div className="mt-24 p-8 bg-teal-500/10 border border-teal-500/20 rounded-2xl text-center">
-          <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-            <strong>Atenção à Agenda:</strong> Devido à logística em prédios públicos, recomendamos antecedência mínima de <span className="text-teal-400 font-bold">30 dias</span> para aprovações governamentais.
-          </p>
-          <button onClick={openWhatsapp} className="inline-flex items-center gap-2 text-teal-400 font-bold tracking-widest uppercase hover:text-white transition-colors">
-            <MessageSquare className="w-4 h-4" /> Verificar Disponibilidade Agora <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-
-      </main>
-    </div>
-  );
-};
 
 // --- APP PRINCIPAL ---
 
@@ -774,25 +608,6 @@ export default function App() {
 
   useEffect(() => {
     setMounted(true);
-
-    // Function to handle routing
-    const handleRouting = () => {
-      const path = window.location.pathname;
-      console.log('App Routing Debug: Current Path:', path);
-      if (path === '/ativacao' || path === '/ativacao/') {
-        console.log('App Routing Debug: Setting view to ativacao');
-        setView('ativacao');
-      } else if (path === '/' || path === '/home') {
-        setView('home');
-      }
-    };
-
-    // Initial check
-    handleRouting();
-
-    // Listen for popstate (back/forward button)
-    window.addEventListener('popstate', handleRouting);
-    return () => window.removeEventListener('popstate', handleRouting);
   }, []);
 
   if (!mounted) return null;
@@ -800,12 +615,6 @@ export default function App() {
   const navigate = (newView) => {
     setView(newView);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Update URL without reload to feel like a real router
-    if (newView === 'ativacao') {
-      window.history.pushState({}, '', '/ativacao');
-    } else if (newView === 'home') {
-      window.history.pushState({}, '', '/');
-    }
   };
 
 
@@ -829,7 +638,7 @@ export default function App() {
           {view === 'scanner' && <ScannerView navigate={navigate} />}
           {view === 'blog' && <BlogView navigate={navigate} />}
           {view === 'article' && <ArticleView navigate={navigate} />}
-          {view === 'ativacao' && <AtivacaoView navigate={navigate} />}
+
         </motion.div>
       </AnimatePresence>
 
