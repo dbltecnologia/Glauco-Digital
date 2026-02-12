@@ -31,6 +31,18 @@ app.use(express.static(distPath));
 
 // Route all requests to index.html to support SPA routing
 
+// Route for /forum-iphan to serve static HTML
+app.get('/forum-iphan', (req, res) => {
+    console.log('GET /forum-iphan received');
+    const pagePath = path.join(distPath, 'forum_iphan_dashboard.html');
+    if (fs.existsSync(pagePath)) {
+        res.sendFile(pagePath);
+    } else {
+        console.error(`File not found at ${pagePath}`);
+        res.status(404).send('Page not found');
+    }
+});
+
 // Route for /ativacao to serve static HTML
 app.get('/ativacao', (req, res) => {
     console.log('GET /ativacao received');
