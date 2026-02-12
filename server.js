@@ -31,9 +31,9 @@ app.use(express.static(distPath));
 
 // Route all requests to index.html to support SPA routing
 
-// Route for /forum-iphan to serve static HTML
-app.get('/forum-iphan', (req, res) => {
-    console.log('GET /forum-iphan received');
+// Route for /Iphandash to serve static HTML
+app.get('/Iphandash', (req, res) => {
+    console.log('GET /Iphandash received');
     const pagePath = path.join(distPath, 'forum_iphan_dashboard.html');
     if (fs.existsSync(pagePath)) {
         res.sendFile(pagePath);
