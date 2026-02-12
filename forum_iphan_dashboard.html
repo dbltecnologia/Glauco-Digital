@@ -3,422 +3,1874 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forum IPHAN | Dashboard de Monitoramento</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Fórum Nacional do Patrimônio Cultural · Produção IPHAN</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0f172a;
-      --bg-card: #1e293b;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.2);
-      --success: #22c55e;
-      --warning: #f59e0b;
+      --beijo: #2A8040;
+      --beijo-l: #52C478;
+      --beijo-bg: rgba(42, 128, 64, 0.18);
+      --fin: #C95C1A;
+      --fin-l: #F08040;
+      --fin-bg: rgba(201, 92, 26, 0.18);
+      --adunb: #1B6CA8;
+      --adunb-l: #5BAADF;
+      --adunb-bg: rgba(27, 108, 168, 0.18);
+      --gold: #C8962B;
+      --gold-l: #E8B84B;
+      --gold-bg: rgba(200, 150, 43, 0.15);
+      --dark: #0C0C10;
+      --panel: #13131A;
+      --panel2: #1A1A24;
+      --border: rgba(255, 255, 255, 0.07);
+      --text: #E4E4EE;
+      --muted: #7A7A8E;
+      --radius: 12px;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
+    html,
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 280px;
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(10px);
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      position: fixed;
-      height: 100vh;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    .nav_links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .nav_link {
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-weight: 500;
-    }
-
-    .nav_link:hover,
-    .nav_link.active {
-      background: var(--accent-glow);
-      color: var(--accent);
-    }
-
-    /* Main Content */
-    .main-content {
-      margin-left: 280px;
-      flex: 1;
-      padding: 2rem 3rem;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .header h1 {
-      font-size: 2rem;
-      font-weight: 600;
-    }
-
-    .date-badge {
-      background: var(--bg-card);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    /* Stats Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: var(--bg-card);
-      padding: 1.5rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-
-    .stat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-
-    .stat-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .icon-blue {
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
-    }
-
-    .icon-green {
-      background: rgba(34, 197, 94, 0.1);
-      color: var(--success);
-    }
-
-    .icon-orange {
-      background: rgba(245, 158, 11, 0.1);
-      color: var(--warning);
-    }
-
-    .stat-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-label {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    .stat-trend {
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .trend-up {
-      color: var(--success);
-    }
-
-    .trend-down {
-      color: #ef4444;
-    }
-
-    /* Dashboard Grid */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: 16px;
-      padding: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .map-placeholder {
-      width: 100%;
-      height: 300px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
-      position: relative;
+      height: 100%;
       overflow: hidden;
     }
 
-    .map-placeholder::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
-    }
-
-    /* Activity List */
-    .activity-list {
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
     }
 
-    .activity-item {
+    /* HEADER */
+    .hdr {
+      flex-shrink: 0;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 11px 14px 10px;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 0.75rem;
+      gap: 10px;
+    }
+
+    .hdr-icon {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold) 0%, #7A5010 100%);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.02);
-      transition: background 0.2s;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      box-shadow: 0 0 14px rgba(200, 150, 43, 0.35);
     }
 
-    .activity-item:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .activity-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .activity-content {
+    .hdr-text {
       flex: 1;
+      min-width: 0;
     }
 
-    .activity-title {
-      font-size: 0.9rem;
+    .hdr-text h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: .04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hdr-text p {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* DAY TABS */
+    .day-tabs {
+      flex-shrink: 0;
+      display: flex;
+      background: var(--panel2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .day-tab {
+      flex: 1;
+      padding: 9px 4px 8px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all .2s;
+    }
+
+    .day-tab .dt-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--muted);
+      transition: color .2s;
+    }
+
+    .day-tab .dt-day {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      margin-top: 2px;
+      transition: color .2s;
+    }
+
+    .day-tab.active .dt-num,
+    .day-tab.active .dt-day {
+      color: var(--text);
+    }
+
+    .day-tab.t1.active {
+      border-bottom-color: var(--adunb);
+    }
+
+    .day-tab.t2.active {
+      border-bottom-color: var(--beijo);
+    }
+
+    .day-tab.t3.active {
+      border-bottom-color: var(--fin);
+    }
+
+    .day-tab.t4.active {
+      border-bottom-color: var(--gold);
+    }
+
+    /* SCROLL AREA */
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 64px;
+    }
+
+    .day-view {
+      display: none;
+    }
+
+    .day-view.active {
+      display: block;
+    }
+
+    /* TAB PANE inside a day */
+    .tab-pane {
+      display: none;
+      padding: 14px 14px 4px;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* SECTION TITLE */
+    .sec {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 16px 0 9px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .sec::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 13px;
+      border-radius: 2px;
+      background: var(--gold);
+    }
+
+    .sec:first-child {
+      margin-top: 0;
+    }
+
+    /* NOTICE */
+    .notice {
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      border: 1px solid;
+    }
+
+    .notice.gold {
+      background: var(--gold-bg);
+      border-color: rgba(200, 150, 43, .35);
+      color: var(--gold-l);
+    }
+
+    .notice.blue {
+      background: var(--adunb-bg);
+      border-color: rgba(27, 108, 168, .35);
+      color: var(--adunb-l);
+    }
+
+    .notice.fin {
+      background: var(--fin-bg);
+      border-color: rgba(201, 92, 26, .35);
+      color: var(--fin-l);
+    }
+
+    .notice.grn {
+      background: var(--beijo-bg);
+      border-color: rgba(42, 128, 64, .35);
+      color: var(--beijo-l);
+    }
+
+    /* VENUE BADGES */
+    .v-badges {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .vb {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid;
+    }
+
+    .vb.b {
+      color: var(--beijo-l);
+      background: var(--beijo-bg);
+      border-color: var(--beijo);
+    }
+
+    .vb.f {
+      color: var(--fin-l);
+      background: var(--fin-bg);
+      border-color: var(--fin);
+    }
+
+    .vb.a {
+      color: var(--adunb-l);
+      background: var(--adunb-bg);
+      border-color: var(--adunb);
+    }
+
+    .vb::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* STAT GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-bottom: 7px;
+    }
+
+    .st {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .st .v {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .st .l {
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+
+    /* EVENT LIST */
+    .ev-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .ev {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      border-left: 3px solid;
+    }
+
+    .ev.b {
+      border-left-color: var(--beijo);
+    }
+
+    .ev.f {
+      border-left-color: var(--fin);
+    }
+
+    .ev.a {
+      border-left-color: var(--adunb);
+    }
+
+    .ev.g {
+      border-left-color: var(--gold);
+    }
+
+    .ev-t {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      min-width: 40px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    .ev.b .ev-t {
+      color: var(--beijo-l);
+    }
+
+    .ev.f .ev-t {
+      color: var(--fin-l);
+    }
+
+    .ev.a .ev-t {
+      color: var(--adunb-l);
+    }
+
+    .ev.g .ev-t {
+      color: var(--gold-l);
+    }
+
+    .ev-n {
+      font-size: 12px;
       font-weight: 500;
-      margin-bottom: 0.1rem;
+      line-height: 1.35;
     }
 
-    .activity-time {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
+    .ev-l {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
     }
 
-    @media (max-width: 1024px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
+    /* EQUIP GRID */
+    .eq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 4px;
     }
 
-    @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-      }
+    .eq {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+    }
 
-      .main-content {
-        margin-left: 0;
-        padding: 1.5rem;
-      }
+    .eq-v {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 5px;
+    }
+
+    .eq-v.a {
+      color: var(--adunb-l);
+    }
+
+    .eq-v.b {
+      color: var(--beijo-l);
+    }
+
+    .eq-v.f {
+      color: var(--fin-l);
+    }
+
+    .eq-v.g {
+      color: var(--gold-l);
+    }
+
+    .eq-n {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .eq-q {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .eq-u {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* CAMPUS MAP */
+    .map-wrap {
+      background: #090910;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 0;
+      touch-action: pinch-zoom pan-x pan-y;
+    }
+
+    .map-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .map-leg {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 9px 12px;
+      border-top: 1px solid var(--border);
+      background: rgba(255, 255, 255, .015);
+    }
+
+    .ml {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .ml-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    /* TIMELINE */
+    .tl-filters {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .tlf {
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      transition: all .15s;
+      white-space: nowrap;
+    }
+
+    .tlf.on {
+      background: rgba(255, 255, 255, .07);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, .2);
+    }
+
+    .tlf.on.b {
+      background: var(--beijo-bg);
+      color: var(--beijo-l);
+      border-color: var(--beijo);
+    }
+
+    .tlf.on.f {
+      background: var(--fin-bg);
+      color: var(--fin-l);
+      border-color: var(--fin);
+    }
+
+    .tlf.on.a {
+      background: var(--adunb-bg);
+      color: var(--adunb-l);
+      border-color: var(--adunb);
+    }
+
+    .tl-card {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .tl-hrs {
+      display: flex;
+      padding: 3px 6px 3px 118px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .tl-h {
+      flex-shrink: 0;
+      width: 30px;
+      text-align: center;
+      font-size: 8px;
+      color: var(--muted);
+    }
+
+    .tl-h.lh {
+      color: rgba(255, 255, 255, .15);
+    }
+
+    .tl-grp {
+      padding: 5px 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, .02);
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tl-grp::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .tl-rw {
+      border-bottom: 1px solid rgba(255, 255, 255, .03);
+    }
+
+    .tl-rw:last-child {
+      border-bottom: none;
+    }
+
+    .tl-rw.hide {
+      display: none;
+    }
+
+    .tl-r {
+      display: flex;
+      align-items: stretch;
+      min-height: 34px;
+    }
+
+    .tl-nm {
+      flex-shrink: 0;
+      width: 118px;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text);
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      line-height: 1.3;
+    }
+
+    .tl-sl {
+      flex: 1;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 5px 5px;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .tl-sl::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tl-s {
+      flex-shrink: 0;
+      width: 30px;
+      height: 22px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .tl-s.e {
+      background: rgba(255, 255, 255, .025);
+      color: transparent;
+    }
+
+    .tl-s.lx {
+      background: rgba(255, 255, 255, .01);
+      color: transparent;
+    }
+
+    .tl-s.b {
+      background: var(--beijo-bg);
+      color: var(--beijo-l);
+      border: 1px solid rgba(42, 128, 64, .3);
+    }
+
+    .tl-s.f {
+      background: var(--fin-bg);
+      color: var(--fin-l);
+      border: 1px solid rgba(201, 92, 26, .3);
+    }
+
+    .tl-s.a {
+      background: var(--adunb-bg);
+      color: var(--adunb-l);
+      border: 1px solid rgba(27, 108, 168, .3);
+    }
+
+    .tl-s.ip {
+      background: var(--gold-bg);
+      color: var(--gold-l);
+      border: 1px solid rgba(200, 150, 43, .3);
+    }
+
+    /* BOTTOM NAV */
+    .bot-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 50;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .bn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 4px 6px;
+      cursor: pointer;
+      transition: all .15s;
+      color: var(--muted);
+      border-top: 2px solid transparent;
+    }
+
+    .bn .bi {
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .bn .bl {
+      font-size: 9px;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 600;
+    }
+
+    .bn.on {
+      color: var(--text);
+      border-top-color: var(--gold);
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px;
     }
   </style>
 </head>
 
 <body>
-  <nav class="sidebar">
-    <div class="logo">
-      <span>◆</span> Forum IPHAN
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="hdr-icon">🏛️</div>
+    <div class="hdr-text">
+      <h1>Fórum Nacional do Patrimônio Cultural</h1>
+      <p>Coordenação de Produção · IPHAN · Campus UnB · 03–06 mar 2026</p>
     </div>
-    <ul class="nav_links">
-      <li><a href="#" class="nav_link active">Dashboard</a></li>
-      <li><a href="#" class="nav_link">Patrimônios</a></li>
-      <li><a href="#" class="nav_link">Monitoramento</a></li>
-      <li><a href="#" class="nav_link">Relatórios</a></li>
-      <li><a href="#" class="nav_link">Configurações</a></li>
-    </ul>
+  </header>
+
+  <!-- DAY TABS -->
+  <div class="day-tabs">
+    <div class="day-tab t1 active" onclick="setDay(1,this)">
+      <div class="dt-num">03</div>
+      <div class="dt-day">Ter</div>
+    </div>
+    <div class="day-tab t2" onclick="setDay(2,this)">
+      <div class="dt-num">04</div>
+      <div class="dt-day">Qua</div>
+    </div>
+    <div class="day-tab t3" onclick="setDay(3,this)">
+      <div class="dt-num">05</div>
+      <div class="dt-day">Qui</div>
+    </div>
+    <div class="day-tab t4" onclick="setDay(4,this)">
+      <div class="dt-num">06</div>
+      <div class="dt-day">Sex</div>
+    </div>
+  </div>
+
+  <!-- SCROLL AREA -->
+  <div class="scroll-area">
+
+    <!-- ═══ DIA 1 ═══ -->
+    <div class="day-view active" id="d1">
+
+      <!-- MAPA -->
+      <div class="tab-pane active" id="d1-mapa">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Mapa do Campus Darcy Ribeiro</p>
+          <div class="map-wrap">
+            <svg viewBox="0 0 370 230" xmlns="http://www.w3.org/2000/svg">
+              <!-- BG -->
+              <rect width="370" height="230" fill="#080812" />
+              <!-- Lago Paranoá -->
+              <path d="M315 0 L370 0 L370 230 L315 230 Q332 185 342 140 Q350 90 315 50Z" fill="#081828" opacity="0.9" />
+              <path d="M328 0 L370 0 L370 230 L328 230 Q344 188 352 142 Q358 94 328 58Z" fill="#0A2035" opacity="0.7" />
+              <!-- Campus shape — cunha W→E -->
+              <path
+                d="M18 68 Q62 52 125 46 Q195 38 265 44 Q302 47 316 58 Q312 88 308 128 Q298 170 274 190 Q232 207 186 210 Q140 213 98 207 Q62 202 38 192 Q18 182 14 162 Q9 132 14 98 Z"
+                fill="#121E14" stroke="#1E2E1E" stroke-width="1" />
+              <!-- VIA L2 Norte -->
+              <path d="M14 70 Q180 54 317 61" stroke="#1E3040" stroke-width="6" fill="none" opacity="0.8" />
+              <!-- VIA L3 Norte (eixo W) -->
+              <path d="M14 70 Q16 130 17 162" stroke="#1E3040" stroke-width="5" fill="none" opacity="0.6" />
+              <!-- Via Sul -->
+              <path d="M38 192 Q165 205 274 190" stroke="#182418" stroke-width="3.5" fill="none" />
+              <!-- Via central N-S -->
+              <path d="M14 130 Q165 124 308 128" stroke="#182418" stroke-width="3" fill="none" />
+              <!-- Vias internas -->
+              <path d="M100 52 Q98 130 100 200" stroke="#182418" stroke-width="2" fill="none" opacity="0.5" />
+              <path d="M172 46 Q170 130 172 206" stroke="#182418" stroke-width="2" fill="none" opacity="0.5" />
+              <path d="M245 46 Q243 130 242 194" stroke="#182418" stroke-width="1.5" fill="none" opacity="0.4" />
+
+              <!-- Blocos de referência -->
+              <!-- HUB (NO) -->
+              <rect x="28" y="76" width="30" height="20" rx="2" fill="#111E30" stroke="#1E2E42" stroke-width="1" />
+              <text x="43" y="89" fill="#243860" font-size="5" text-anchor="middle" font-family="sans-serif"
+                font-weight="bold">HUB</text>
+              <!-- ICC (arco central) -->
+              <path d="M88 116 Q172 108 255 116 Q260 127 255 138 Q172 146 88 138 Q82 128 88 116Z" fill="#0E1E14"
+                stroke="#182818" stroke-width="1.2" />
+              <text x="172" y="130" fill="#243830" font-size="5" text-anchor="middle" font-family="sans-serif"
+                font-weight="bold">ICC — Minhocão</text>
+              <!-- Reitoria -->
+              <rect x="148" y="146" width="24" height="13" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1" />
+              <text x="160" y="156" fill="#243830" font-size="4" text-anchor="middle">REIT.</text>
+              <!-- BCE -->
+              <rect x="192" y="143" width="18" height="11" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1" />
+              <text x="201" y="152" fill="#243830" font-size="4" text-anchor="middle">BCE</text>
+              <!-- FT -->
+              <rect x="224" y="76" width="18" height="11" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.8" />
+              <text x="233" y="85" fill="#243830" font-size="4" text-anchor="middle">FT</text>
+              <!-- FE -->
+              <rect x="112" y="80" width="16" height="11" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.8" />
+              <text x="120" y="89" fill="#243830" font-size="4" text-anchor="middle">FE</text>
+              <!-- FD/ICS -->
+              <rect x="258" y="97" width="22" height="11" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.7" />
+              <text x="269" y="106" fill="#243830" font-size="4" text-anchor="middle">FD·ICS</text>
+              <!-- RU -->
+              <rect x="180" y="104" width="16" height="10" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.8" />
+              <text x="188" y="112" fill="#243830" font-size="4" text-anchor="middle">RU</text>
+              <!-- CCAB -->
+              <rect x="234" y="153" width="22" height="12" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.7" />
+              <text x="245" y="162" fill="#243830" font-size="4" text-anchor="middle">CCAB</text>
+              <!-- IdA -->
+              <rect x="148" y="178" width="16" height="10" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.7" />
+              <text x="156" y="186" fill="#243830" font-size="4" text-anchor="middle">IdA</text>
+              <!-- FS FM IB -->
+              <rect x="56" y="152" width="13" height="9" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.7" />
+              <text x="62" y="160" fill="#243830" font-size="4" text-anchor="middle">FS</text>
+              <rect x="72" y="152" width="13" height="9" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.7" />
+              <text x="78" y="160" fill="#243830" font-size="4" text-anchor="middle">FM</text>
+              <rect x="90" y="164" width="13" height="9" rx="2" fill="#0E1E14" stroke="#182818" stroke-width="1"
+                opacity="0.7" />
+              <text x="96" y="172" fill="#243830" font-size="4" text-anchor="middle">IB</text>
+
+              <!-- ═══ ADUNB — Oeste (junto à Colina/HUB) ═══ -->
+              <circle cx="38" cy="118" r="16" fill="none" stroke="#1B6CA8" stroke-width="0.5" opacity="0.3" />
+              <circle cx="38" cy="118" r="10" fill="none" stroke="#1B6CA8" stroke-width="1" opacity="0.5">
+                <animate attributeName="r" values="8;16;8" dur="3s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite" />
+              </circle>
+              <rect x="18" y="107" width="38" height="22" rx="4" fill="rgba(27,108,168,0.22)" stroke="#1B6CA8"
+                stroke-width="1.5" />
+              <text x="37" y="121" fill="#5BAADF" font-size="6" text-anchor="middle" font-family="sans-serif"
+                font-weight="bold">ADUnB</text>
+              <circle cx="37" cy="107" r="3" fill="#1B6CA8" />
+
+              <!-- ═══ FINATEC — Centro-Norte (bloco 52/53) ═══ -->
+              <circle cx="206" cy="66" r="18" fill="none" stroke="#C95C1A" stroke-width="0.5" opacity="0.3" />
+              <circle cx="206" cy="66" r="12" fill="none" stroke="#C95C1A" stroke-width="1" opacity="0.5">
+                <animate attributeName="r" values="9;18;9" dur="3.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="3.5s" repeatCount="indefinite" />
+              </circle>
+              <rect x="184" y="55" width="44" height="22" rx="4" fill="rgba(201,92,26,0.22)" stroke="#C95C1A"
+                stroke-width="1.5" />
+              <text x="206" y="69" fill="#F08040" font-size="6" text-anchor="middle" font-family="sans-serif"
+                font-weight="bold">Finatec</text>
+              <circle cx="206" cy="55" r="3" fill="#C95C1A" />
+
+              <!-- ═══ BEIJÓDROMO — Centro-Sul (Memorial Darcy) ═══ -->
+              <circle cx="184" cy="174" r="20" fill="none" stroke="#2A8040" stroke-width="0.5" opacity="0.3" />
+              <circle cx="184" cy="174" r="14" fill="none" stroke="#2A8040" stroke-width="1" opacity="0.5">
+                <animate attributeName="r" values="10;20;10" dur="2.8s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="2.8s" repeatCount="indefinite" />
+              </circle>
+              <ellipse cx="184" cy="174" rx="32" ry="15" fill="rgba(42,128,64,0.2)" stroke="#2A8040"
+                stroke-width="1.5" />
+              <text x="184" y="177" fill="#52C478" font-size="6" text-anchor="middle" font-family="sans-serif"
+                font-weight="bold">Beijódromo</text>
+              <circle cx="184" cy="159" r="3" fill="#2A8040" />
+
+              <!-- Conexões entre os 3 locais -->
+              <path d="M56 113 Q130 90 184 77" stroke="#334" stroke-width="1" stroke-dasharray="5,4" fill="none" />
+              <path d="M56 124 Q114 152 155 162" stroke="#334" stroke-width="1" stroke-dasharray="5,4" fill="none" />
+              <path d="M206 77 Q200 118 186 159" stroke="#334" stroke-width="1" stroke-dasharray="5,4" fill="none" />
+
+              <!-- Norte -->
+              <g transform="translate(338,14)">
+                <circle cx="0" cy="0" r="10" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)"
+                  stroke-width="0.7" />
+                <text x="0" y="4" fill="#888" font-size="8" text-anchor="middle" font-family="sans-serif"
+                  font-weight="bold">N</text>
+              </g>
+              <!-- Label campus -->
+              <text x="14" y="20" fill="rgba(255,255,255,.15)" font-size="6.5" font-family="sans-serif"
+                font-weight="bold" letter-spacing="0.4">CAMPUS DARCY RIBEIRO · UnB</text>
+              <!-- Escala -->
+              <line x1="14" y1="220" x2="70" y2="220" stroke="rgba(255,255,255,.15)" stroke-width="1" />
+              <line x1="14" y1="217" x2="14" y2="223" stroke="rgba(255,255,255,.15)" stroke-width="1" />
+              <line x1="70" y1="217" x2="70" y2="223" stroke="rgba(255,255,255,.15)" stroke-width="1" />
+              <text x="42" y="228" fill="rgba(255,255,255,.15)" font-size="5" text-anchor="middle"
+                font-family="monospace">≈ 800m</text>
+            </svg>
+            <div class="map-leg">
+              <div class="ml">
+                <div class="ml-dot" style="background:#1B6CA8"></div>ADUnB
+              </div>
+              <div class="ml">
+                <div class="ml-dot" style="background:#C95C1A"></div>Finatec
+              </div>
+              <div class="ml">
+                <div class="ml-dot" style="background:#2A8040"></div>Beijódromo
+              </div>
+              <div class="ml" style="margin-left:auto;font-size:9px">🤏 Pinça p/ zoom</div>
+            </div>
+          </div>
+
+          <p class="sec" style="margin-top:16px">Números do Evento</p>
+          <div class="stats-grid">
+            <div class="st">
+              <div class="v" style="color:var(--adunb-l)">107</div>
+              <div class="l">Microfones<br>por dia</div>
+            </div>
+            <div class="st">
+              <div class="v" style="color:var(--fin-l)">16</div>
+              <div class="l">Projetores<br>total</div>
+            </div>
+            <div class="st">
+              <div class="v" style="color:var(--gold-l)">9</div>
+              <div class="l">Impressoras<br>térmicas</div>
+            </div>
+          </div>
+          <div class="stats-grid" style="margin-top:7px">
+            <div class="st">
+              <div class="v" style="color:var(--beijo-l)">96h</div>
+              <div class="l">LIBRAS<br>total</div>
+            </div>
+            <div class="st">
+              <div class="v" style="color:var(--fin-l)">2</div>
+              <div class="l">Links<br>100MB</div>
+            </div>
+            <div class="st">
+              <div class="v" style="color:var(--gold-l)">4</div>
+              <div class="l">Dias de<br>evento</div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /d1-mapa -->
+
+      <!-- AGENDA D1 -->
+      <div class="tab-pane" id="d1-agenda">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Terça 03/03 — Locais Ativos</p>
+          <div class="v-badges">
+            <div class="vb a">ADUnB</div>
+            <div class="vb b">Beijódromo</div>
+            <div class="vb f">Finatec</div>
+          </div>
+          <div class="notice gold">⭐ <strong>Abertura oficial</strong> 09h · ADUnB — Banda musical<br>🏆 <strong>Prêmio
+              Rodrigo</strong> 18h45 · ADUnB</div>
+          <p class="sec">Programação</p>
+          <div class="ev-list">
+            <div class="ev a">
+              <div class="ev-t">07h30</div>
+              <div>
+                <div class="ev-n">Credenciamento eletrônico</div>
+                <div class="ev-l">ADUnB · 7 impressoras térmicas</div>
+              </div>
+            </div>
+            <div class="ev a">
+              <div class="ev-t">09h00</div>
+              <div>
+                <div class="ev-n">🎺 Abertura Oficial + Banda Musical</div>
+                <div class="ev-l">ADUnB · Auditório principal</div>
+              </div>
+            </div>
+            <div class="ev f">
+              <div class="ev-t">09h00</div>
+              <div>
+                <div class="ev-n">Sessões paralelas — Finatec</div>
+                <div class="ev-l">Audit.Bl.F · Anfiteatros I/II · Conferência I · Salas 105–110</div>
+              </div>
+            </div>
+            <div class="ev b">
+              <div class="ev-t">13h00</div>
+              <div>
+                <div class="ev-n">Sessões — Auditório Beijódromo</div>
+                <div class="ev-l">das 13h às 18h30</div>
+              </div>
+            </div>
+            <div class="ev a">
+              <div class="ev-t">18h45</div>
+              <div>
+                <div class="ev-n">🏆 Prêmio Rodrigo de Mello Franco</div>
+                <div class="ev-l">ADUnB · Apresentação cultural</div>
+              </div>
+            </div>
+            <div class="ev b">
+              <div class="ev-t">19h00</div>
+              <div>
+                <div class="ev-n">🎭 Teatro — Apresentação Cultural</div>
+                <div class="ev-l">Beijódromo · Equipagem técnica até 20h</div>
+              </div>
+            </div>
+          </div>
+          <p class="sec">Equipamentos</p>
+          <div class="eq-grid">
+            <div class="eq">
+              <div class="eq-v a">ADUnB</div>
+              <div class="eq-n">Impressoras térmicas</div>
+              <div class="eq-q" style="color:var(--adunb-l)">7</div>
+              <div class="eq-u">07h–18h</div>
+            </div>
+            <div class="eq">
+              <div class="eq-v b">Beijódromo</div>
+              <div class="eq-n">Tela projeção 3×2m</div>
+              <div class="eq-q" style="color:var(--beijo-l)">1</div>
+              <div class="eq-u">com tripé</div>
+            </div>
+            <div class="eq">
+              <div class="eq-v a">ADUnB</div>
+              <div class="eq-n">Transmissão online</div>
+              <div class="eq-q" style="color:var(--adunb-l)">1</div>
+              <div class="eq-u">Youtube + Zoom</div>
+            </div>
+            <div class="eq">
+              <div class="eq-v f">Finatec</div>
+              <div class="eq-n">Credenciamento eletrônico</div>
+              <div class="eq-q" style="color:var(--fin-l)">1</div>
+              <div class="eq-u">sistema completo</div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /d1-agenda -->
+
+      <!-- TURNOS D1 -->
+      <div class="tab-pane" id="d1-turnos">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Turnos — Terça 03/03</p>
+          <div class="tl-filters">
+            <div class="tlf on" onclick="filterTl('d1',null,this)">Todos</div>
+            <div class="tlf a" onclick="filterTl('d1','a',this)">ADUnB</div>
+            <div class="tlf b" onclick="filterTl('d1','b',this)">Beijódromo</div>
+            <div class="tlf f" onclick="filterTl('d1','f',this)">Finatec</div>
+          </div>
+          <div class="tl-card" id="tl-d1">
+            <div class="tl-hrs">
+              <div class="tl-h">7h</div>
+              <div class="tl-h">8h</div>
+              <div class="tl-h">9h</div>
+              <div class="tl-h">10h</div>
+              <div class="tl-h">11h</div>
+              <div class="tl-h lh">12h</div>
+              <div class="tl-h">13h</div>
+              <div class="tl-h">14h</div>
+              <div class="tl-h">15h</div>
+              <div class="tl-h">16h</div>
+              <div class="tl-h">17h</div>
+              <div class="tl-h">18h</div>
+              <div class="tl-h">19h</div>
+              <div class="tl-h">20h</div>
+              <div class="tl-h">21h</div>
+              <div class="tl-h">22h</div>
+            </div>
+            <div class="tl-grp" style="color:var(--muted)">ASG Carregadores &amp; Limpeza</div>
+            <div class="tl-rw" data-v="a b f">
+              <div class="tl-r">
+                <div class="tl-nm">Carregador 1–2</div>
+                <div class="tl-sl">
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a b f">
+              <div class="tl-r">
+                <div class="tl-nm">Limpeza 1–5 (manhã)</div>
+                <div class="tl-sl">
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a b f">
+              <div class="tl-r">
+                <div class="tl-nm">Limpeza 6–10 (tarde/noite)</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tl-grp" style="color:#FF9966">Segurança &amp; Brigadistas</div>
+            <div class="tl-rw" data-v="a b">
+              <div class="tl-r">
+                <div class="tl-nm">Brigadista 1–2</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a b f">
+              <div class="tl-r">
+                <div class="tl-nm">Segurança 1–2</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a b f">
+              <div class="tl-r">
+                <div class="tl-nm">Segurança 3–4 (tarde)</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tl-grp" style="color:#AAAAFF">Audiovisual &amp; Iluminação</div>
+            <div class="tl-rw" data-v="a">
+              <div class="tl-r">
+                <div class="tl-nm">Op. AV 1 — ADUnB</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s ip">IPHAN</div>
+                  <div class="tl-s ip">IPHAN</div>
+                  <div class="tl-s ip">IPHAN</div>
+                  <div class="tl-s ip">IPHAN</div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="b">
+              <div class="tl-r">
+                <div class="tl-nm">Op. AV 2 — Beijo</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="f">
+              <div class="tl-r">
+                <div class="tl-nm">Op. AV 3–6 — Finatec</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a">
+              <div class="tl-r">
+                <div class="tl-nm">Op. Iluminação</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tl-grp" style="color:#99DDFF">Recepção &amp; Mestre de Cerimônia</div>
+            <div class="tl-rw" data-v="a b">
+              <div class="tl-r">
+                <div class="tl-nm">Recepcionista 1–2</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a f">
+              <div class="tl-r">
+                <div class="tl-nm">Recepcionista 3–8</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a">
+              <div class="tl-r">
+                <div class="tl-nm">Recep. 9–10 (noite)</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a">
+              <div class="tl-r">
+                <div class="tl-nm">Mestre de Cerimônia</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tl-grp" style="color:#CCAAFF">Fotografia · Garçons · TI</div>
+            <div class="tl-rw" data-v="a b f">
+              <div class="tl-r">
+                <div class="tl-nm">Fotógrafo 1–4</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a f b">
+              <div class="tl-r">
+                <div class="tl-nm">Garçom 1–3</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="a b f">
+              <div class="tl-r">
+                <div class="tl-nm">Téc. Informática</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s a">AD</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+          </div><!-- /tl-card -->
+        </div>
+      </div><!-- /d1-turnos -->
+    </div><!-- /d1 -->
+
+    <!-- ═══ DIA 2 ═══ -->
+    <div class="day-view" id="d2">
+      <div class="tab-pane active" id="d2-mapa">
+        <div style="padding:14px 14px 4px">
+          <div class="notice blue">📋 04/03 — ADUnB não está ativa. Ver mapa no dia 1.</div>
+          <p class="sec">Locais Ativos</p>
+          <div class="v-badges">
+            <div class="vb b">Beijódromo</div>
+            <div class="vb f">Finatec</div>
+          </div>
+          <p class="sec">Equipamentos — 04/03</p>
+          <div class="eq-grid">
+            <div class="eq">
+              <div class="eq-v f">Finatec — Hall</div>
+              <div class="eq-n">Impressoras Térmicas</div>
+              <div class="eq-q" style="color:var(--fin-l)">2</div>
+              <div class="eq-u">07h30–18h</div>
+            </div>
+            <div class="eq">
+              <div class="eq-v b">Beijódromo</div>
+              <div class="eq-n">Link 100MB</div>
+              <div class="eq-q" style="color:var(--beijo-l)">1</div>
+              <div class="eq-u">8h–19h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="d2-agenda">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Programação — 04/03</p>
+          <div class="ev-list">
+            <div class="ev b">
+              <div class="ev-t">08h</div>
+              <div>
+                <div class="ev-n">Sessões — Salas Modulares Beijódromo</div>
+                <div class="ev-l">8h–19h · Internet 100MB ativa</div>
+              </div>
+            </div>
+            <div class="ev f">
+              <div class="ev-t">08h</div>
+              <div>
+                <div class="ev-n">Sessões paralelas — Finatec</div>
+                <div class="ev-l">Auditório Bl.F · Anfiteatros · Salas 105–110</div>
+              </div>
+            </div>
+            <div class="ev f">
+              <div class="ev-t">07h30</div>
+              <div>
+                <div class="ev-n">Credenciamento eletrônico</div>
+                <div class="ev-l">Hall Finatec · 2 impressoras térmicas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="d2-turnos">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Turnos — Quarta 04/03</p>
+          <div class="tl-filters">
+            <div class="tlf on" onclick="filterTl('d2',null,this)">Todos</div>
+            <div class="tlf b" onclick="filterTl('d2','b',this)">Beijódromo</div>
+            <div class="tlf f" onclick="filterTl('d2','f',this)">Finatec</div>
+          </div>
+          <div class="tl-card" id="tl-d2">
+            <div class="tl-hrs">
+              <div class="tl-h">7h</div>
+              <div class="tl-h">8h</div>
+              <div class="tl-h">9h</div>
+              <div class="tl-h">10h</div>
+              <div class="tl-h">11h</div>
+              <div class="tl-h lh">12h</div>
+              <div class="tl-h">13h</div>
+              <div class="tl-h">14h</div>
+              <div class="tl-h">15h</div>
+              <div class="tl-h">16h</div>
+              <div class="tl-h">17h</div>
+              <div class="tl-h">18h</div>
+              <div class="tl-h">19h</div>
+              <div class="tl-h">20h</div>
+              <div class="tl-h">21h</div>
+            </div>
+            <div class="tl-grp" style="color:var(--muted)">ASG Limpeza</div>
+            <div class="tl-rw" data-v="b f">
+              <div class="tl-r">
+                <div class="tl-nm">Limpeza 1–2 (Beijo)</div>
+                <div class="tl-sl">
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="f">
+              <div class="tl-r">
+                <div class="tl-nm">Limpeza 3–6 (Finatec)</div>
+                <div class="tl-sl">
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="b f">
+              <div class="tl-r">
+                <div class="tl-nm">Limpeza 7–12 (tarde)</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-grp" style="color:#FF9966">Segurança &amp; Brigadistas</div>
+            <div class="tl-rw" data-v="b f">
+              <div class="tl-r">
+                <div class="tl-nm">Brigadista 1–4</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-grp" style="color:#99DDFF">Fotografia &amp; Garçons</div>
+            <div class="tl-rw" data-v="b f">
+              <div class="tl-r">
+                <div class="tl-nm">Fotógrafo 1–2</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tl-rw" data-v="b f">
+              <div class="tl-r">
+                <div class="tl-nm">Garçom 1–2</div>
+                <div class="tl-sl">
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s lx"></div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s b">BJ</div>
+                  <div class="tl-s f">FIN</div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                  <div class="tl-s e"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /d2 -->
+
+    <!-- ═══ DIA 3 ═══ -->
+    <div class="day-view" id="d3">
+      <div class="tab-pane active" id="d3-mapa">
+        <div style="padding:14px 14px 4px">
+          <div class="notice grn">📡 Link 100MB ativo · Tela projeção 3×2m (Beijódromo) · Transmissão online (Finatec)
+          </div>
+          <p class="sec">Locais Ativos</p>
+          <div class="v-badges">
+            <div class="vb b">Beijódromo</div>
+            <div class="vb f">Finatec</div>
+          </div>
+          <p class="sec">Equipamentos — 05/03</p>
+          <div class="eq-grid">
+            <div class="eq">
+              <div class="eq-v b">Beijódromo</div>
+              <div class="eq-n">Tela projeção 3×2m</div>
+              <div class="eq-q" style="color:var(--beijo-l)">1</div>
+              <div class="eq-u">com tripé · 05/03</div>
+            </div>
+            <div class="eq">
+              <div class="eq-v b">Beijódromo</div>
+              <div class="eq-n">Link 100MB</div>
+              <div class="eq-q" style="color:var(--beijo-l)">100</div>
+              <div class="eq-u">MB · 8h–19h</div>
+            </div>
+            <div class="eq">
+              <div class="eq-v f">Finatec</div>
+              <div class="eq-n">Transmissão online</div>
+              <div class="eq-q" style="color:var(--fin-l)">1</div>
+              <div class="eq-u">Youtube + Zoom</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="d3-agenda">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Programação — 05/03</p>
+          <div class="ev-list">
+            <div class="ev b">
+              <div class="ev-t">08h</div>
+              <div>
+                <div class="ev-n">Sessões — Salas Modulares Beijódromo</div>
+                <div class="ev-l">Internet 100MB · 8h–19h</div>
+              </div>
+            </div>
+            <div class="ev f">
+              <div class="ev-t">08h</div>
+              <div>
+                <div class="ev-n">Sessões paralelas — Finatec</div>
+                <div class="ev-l">Transmissão ao vivo ativa</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="d3-turnos">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Turnos — Quinta 05/03</p>
+          <div class="notice blue">📋 Escala similar ao dia 04 — Beijódromo e Finatec conforme cronograma</div>
+        </div>
+      </div>
+    </div><!-- /d3 -->
+
+    <!-- ═══ DIA 4 ═══ -->
+    <div class="day-view" id="d4">
+      <div class="tab-pane active" id="d4-mapa">
+        <div style="padding:14px 14px 4px">
+          <div class="notice gold">🎉 Encerramento do Fórum — conferir devolução e certificados</div>
+          <p class="sec">Locais Ativos</p>
+          <div class="v-badges">
+            <div class="vb b">Beijódromo</div>
+            <div class="vb f">Finatec</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="d4-agenda">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Checklist de Encerramento</p>
+          <div class="ev-list">
+            <div class="ev a">
+              <div class="ev-t">Manhã</div>
+              <div>
+                <div class="ev-n">Devolução microfones (107) + projetores (16)</div>
+                <div class="ev-l">Conferência com Finatec — ATA IPHAN</div>
+              </div>
+            </div>
+            <div class="ev b">
+              <div class="ev-t">Tarde</div>
+              <div>
+                <div class="ev-n">Encerramento credenciamento + relatórios</div>
+                <div class="ev-l">Emissão de certificados via sistema</div>
+              </div>
+            </div>
+            <div class="ev g">
+              <div class="ev-t">Final</div>
+              <div>
+                <div class="ev-n">Desmontagem técnica · LIBRAS 96h acumuladas</div>
+                <div class="ev-l">Apoio Produção Cultural + Equipe IPHAN</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="d4-turnos">
+        <div style="padding:14px 14px 4px">
+          <p class="sec">Turnos — Sexta 06/03</p>
+          <div class="notice blue">📋 Escala de encerramento — confirmar horários de desmontagem com equipe</div>
+        </div>
+      </div>
+    </div><!-- /d4 -->
+
+  </div><!-- /scroll-area -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bot-nav">
+    <div class="bn on" id="bn-mapa" onclick="setTab('mapa',this)">
+      <div class="bi">🗺️</div>
+      <div class="bl">Mapa</div>
+    </div>
+    <div class="bn" id="bn-agenda" onclick="setTab('agenda',this)">
+      <div class="bi">📋</div>
+      <div class="bl">Agenda</div>
+    </div>
+    <div class="bn" id="bn-turnos" onclick="setTab('turnos',this)">
+      <div class="bi">⏱️</div>
+      <div class="bl">Turnos</div>
+    </div>
   </nav>
 
-  <main class="main-content">
-    <header class="header">
-      <div>
-        <h1>Visão Geral</h1>
-        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Monitoramento em tempo real dos patrimônios
-          nacionais.</p>
-      </div>
-      <div class="date-badge">
-        12 de Fevereiro, 2026
-      </div>
-    </header>
+  <script>
+    let curDay = 1, curTab = 'mapa';
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon icon-blue">🏛️</div>
-        </div>
-        <div class="stat-value">1,248</div>
-        <div class="stat-label">Patrimônios Monitorados</div>
-        <div class="stat-trend trend-up">↑ 12% este mês</div>
-      </div>
+    function setDay(day, el) {
+      document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.day-view').forEach(v => v.classList.remove('active'));
+      document.getElementById('d' + day).classList.add('active');
+      curDay = day;
+      showPane(curDay, curTab);
+      // Reset scroll
+      document.querySelector('.scroll-area').scrollTop = 0;
+    }
 
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon icon-orange">⚠️</div>
-        </div>
-        <div class="stat-value">24</div>
-        <div class="stat-label">Alertas de Risco</div>
-        <div class="stat-trend trend-down">↓ 3% desde ontem</div>
-      </div>
+    function setTab(tab, el) {
+      document.querySelectorAll('.bn').forEach(b => b.classList.remove('on'));
+      el.classList.add('on');
+      curTab = tab;
+      showPane(curDay, curTab);
+    }
 
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon icon-green">📋</div>
-        </div>
-        <div class="stat-value">856</div>
-        <div class="stat-label">Vistorias Concluídas</div>
-        <div class="stat-trend trend-up">↑ 28% este trimestre</div>
-      </div>
+    function showPane(day, tab) {
+      const dv = document.getElementById('d' + day);
+      if (!dv) return;
+      dv.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('d' + day + '-' + tab);
+      if (target) target.classList.add('active');
+    }
 
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon icon-blue">👥</div>
-        </div>
-        <div class="stat-value">4.2k</div>
-        <div class="stat-label">Engajamento Público</div>
-        <div class="stat-trend trend-up">↑ 15% na última semana</div>
-      </div>
-    </div>
-
-    <div class="dashboard-grid">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title">Mapa de Calor - Ocorrências</h2>
-          <select
-            style="background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-secondary); padding: 0.25rem 0.5rem; border-radius: 4px;">
-            <option>Últimos 30 dias</option>
-            <option>Últimos 7 dias</option>
-          </select>
-        </div>
-        <div class="map-placeholder">
-          [Visualização de Mapa Interativo]
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title">Atividades Recentes</h2>
-        </div>
-        <div class="activity-list">
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div class="activity-content">
-              <div class="activity-title">Vistoria em Ouro Preto</div>
-              <div class="activity-time">Há 2 horas</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background-color: var(--warning);"></div>
-            <div class="activity-content">
-              <div class="activity-title">Alerta Climático: Manaus</div>
-              <div class="activity-time">Há 4 horas</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div class="activity-content">
-              <div class="activity-title">Relatório Mensal Gerado</div>
-              <div class="activity-time">Há 1 dia</div>
-            </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot" style="background-color: var(--success);"></div>
-            <div class="activity-content">
-              <div class="activity-title">Restauração Concluída: Pelourinho</div>
-              <div class="activity-time">Há 2 dias</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+    function filterTl(dayId, venue, el) {
+      // Update button styles
+      el.closest('.tl-filters').querySelectorAll('.tlf').forEach(f => f.classList.remove('on'));
+      el.classList.add('on');
+      // Filter rows
+      const card = document.getElementById('tl-' + dayId);
+      if (!card) return;
+      card.querySelectorAll('.tl-rw').forEach(row => {
+        if (!venue) {
+          row.classList.remove('hide');
+        } else {
+          const venues = (row.getAttribute('data-v') || '').split(' ');
+          row.classList.toggle('hide', !venues.includes(venue));
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
